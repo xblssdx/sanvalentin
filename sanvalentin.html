@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Ti ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    .screen {
+      display: none;
+      padding: 25px;
+      max-width: 360px;
+      animation: fade 1s;
+    }
+
+    .active {
+      display: block;
+    }
+
+    img {
+      width: 200px;
+      border-radius: 20px;
+      margin: 15px 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    button {
+      background: white;
+      color: #ff4d6d;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      position: absolute;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 20px;
+      animation: float 5s linear forwards;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); opacity:1; }
+      to { transform: translateY(-100vh); opacity:0; }
+    }
+
+    @keyframes fall {
+      from { transform: translateY(0); opacity:1; }
+      to { transform: translateY(100vh); opacity:0; }
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Música -->
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Pantalla 1 -->
+<div id="screen1" class="screen active">
+  <h1>Hola, mi futura esposa y madre de mis wawas❤️</h1>
+  <img src="foto.png" alt="Nuestra foto">
+  <p>
+    Esto no es un mensaje cualquiera…  
+    es un aviso de secuestro oño 🥺✨
+  </p>
+  <button onclick="nextScreen(2)">Continuar 💌</button>
+</div>
+
+<!-- Pantalla 2 -->
+<div id="screen2" class="screen">
+  <h1>Desde que llegaste a mi vida🌙</h1>
+  <p>
+    Mis días son más lindos,  
+    mis risas más sinceras, 
+    mis noches más interesantes  
+    y mi corazón cada día más tuyo 💖
+  </p>
+  <button onclick="nextScreen(3)">Seguir ❤️</button>
+</div>
+
+<!-- Pantalla 3 -->
+<div id="screen3" class="screen">
+  <h1>Entonces… 💕</h1>
+  <p>
+    Este 14 de febrero  
+    ¿quieres ser <b>mi San Valentín</b>? 🌹
+  </p>
+  <button onclick="yes()">Sí 💘</button>
+  <button id="noBtn" onmouseover="moveNo()">No deseo</button>
+</div>
+
+<!-- Pantalla 4 -->
+<div id="screen4" class="screen">
+  <h1>Igual tenías que decir que sí jeje❤️✨</h1>
+  <p>
+    Prometo cuidarte, respetarte  
+    y hacer de este San Valentín  
+    un recuerdo bonito para los dos💞
+  </p>
+  <p>TE AMO COMO NO TIENES IDEA</p>
+</div>
+
+<script>
+function nextScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + n).classList.add('active');
+
+  // Reproducir música en el primer clic
+  const music = document.getElementById("musica");
+  if (music.paused) {
+    music.play();
+  }
+}
+
+function yes() {
+  nextScreen(4);
+  lanzarConfeti();
+}
+
+function moveNo() {
+  const btn = document.getElementById('noBtn');
+  btn.style.top = Math.random() * 60 + "vh";
+  btn.style.left = Math.random() * 60 + "vw";
+}
+
+// Corazones flotando
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
+
+// Confeti
+function lanzarConfeti() {
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.innerHTML = "🎉";
+    confetti.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
